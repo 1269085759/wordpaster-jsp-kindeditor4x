@@ -140,8 +140,7 @@ function WordPasterManager()
 	} //Firefox
 	else if (this.firefox)
     {
-        var ver = browserName.match(/firefox\/(\d+)/);
-        if (parseInt(ver[1]) >= 47)
+        if (!this.app.supportFF())//仍然支持npapi
         {
             this.app.postMessage = this.app.postMessageEdge;
             this.edge = true;
@@ -163,23 +162,15 @@ function WordPasterManager()
 	}
 	else if (this.edge)
     {
-        this.app.postMessage = postMessageEdge;
+        this.app.postMessage = this.app.postMessageEdge;
 	}
-    this.setup_check = function ()
+    this.setup_tip = function ()
     {
         this.ui.setup.skygqbox();
         var dom = this.ui.setup.html("控件加载中，如果未加载成功请先<a name='w-exe'>安装控件</a>");
         var lnk = dom.find('a[name="w-exe"]');
         lnk.attr("href", this.Config["ExePath"]);
     }
-	this.need_setup = function ()
-    {
-        var dom = this.ui.setup.html("未检测到控件，请先<a name='aCtl'>安装控件</a>,Chrome 45+需要单独<a name='aCrx'>安装扩展</a>");
-	    var lnk = dom.find('a[name="aCtl"]');
-	    lnk.attr("href", this.Config["ExePath"]);
-	    var crx = dom.find('a[name="aCrx"]');
-	    crx.attr("href", this.Config["NatPath"]);
-    };
     this.need_update = function ()
     {
         var dom = this.ui.setup.html("发现新版本，请<a name='w-exe' href='#'>更新</a>");
@@ -304,12 +295,11 @@ function WordPasterManager()
             	if(_this.ie) _this.parter = _this.ieParser;;
             	_this.parter.recvMessage = _this.recvMessage;
             }
-            
-	        _this.setup_check();
-	        if (_this.edge) {
-	            _this.edgeApp.runChr();
-	        }
-	        else { _this.app.init(); }
+            _this.setup_tip();
+            if (_this.edge) {
+                _this.edgeApp.runChr();
+            }
+            else { _this.app.init(); }
 	    });
 	};
 
@@ -351,7 +341,7 @@ function WordPasterManager()
 	{
 	    if (!this.setuped)
         {
-            this.need_setup(); return;
+            this.setup_tip(); return;
 	    }
 	    if (!this.chrome45 && !_this.edge)
 	    {
@@ -372,7 +362,7 @@ function WordPasterManager()
 	{
 	    if (!this.setuped)
         {
-            this.need_setup(); return;
+            this.setup_tip(); return;
         }
         this.app.paste();
 	};
