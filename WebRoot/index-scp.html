@@ -12,6 +12,9 @@
 	<script type="text/javascript" charset="utf-8" src="lang/zh_CN.js"></script>
     <script type="text/javascript" src="WordPaster/js/jquery-1.4.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="WordPaster/js/skygqbox.js" charset="utf-8"></script>
+    <script type="text/javascript" src="WordPaster/js/w.edge.js" charset="utf-8"></script>
+    <script type="text/javascript" src="WordPaster/js/w.app.js" charset="utf-8"></script>
+    <script type="text/javascript" src="WordPaster/js/w.file.js" charset="utf-8"></script>
     <script type="text/javascript" src="WordPaster/js/WordPaster.js" charset="utf-8"></script>
     <script type="text/javascript" src="scp/js/WordPaster.js" charset="utf-8"></script>
     <script type="text/javascript" src="scp/scp.js" charset="utf-8"></script>
@@ -36,13 +39,13 @@
 	<!--KindEditor编辑器-->
 	<textarea id="content1" name="content1" style="width:700px;height:300px;visibility:hidden;"></textarea>
 	<script type="text/javascript">
-		var pasterMgr = new PasterManager();
-		//pasterMgr.Config["PostUrl"] = "http://www.ncmem.com/products/upload.asp"
-		pasterMgr.Config["PostUrl"] = "http://localhost:8080/WordPasterKindEditor4x/upload.jsp";
+		var pasterMgr = new WordPasterManager();
+		//pasterMgr.Config["PostUrl"] = "http://www.ncmem.com/products/upload.asp";
+		pasterMgr.Config["PostUrl"] = "http://localhost:8080/WordPaster2KindEditor4x/upload.jsp";
 		pasterMgr.Load();//
 
 		var scpMgr = new CaptureManager();
-		scpMgr.Config["PostUrl"] = "http://localhost:8080/WordPasterKindEditor4x/upload.jsp";
+		scpMgr.Config["PostUrl"] = "http://localhost:8080/WordPaster2KindEditor4x/upload.jsp";
 
 		$(document).ready(function () {
 		    scpMgr.Load();
